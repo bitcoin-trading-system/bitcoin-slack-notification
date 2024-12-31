@@ -20,6 +20,12 @@ jobs:
           go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
           golangci-lint run ./...
 
+      - name: setUp env file
+        run: |
+          mkdir env
+          touch env/.env.local
+          echo "SLACK_ACCESS_TOKEN=${{ secrets.SLACK_ACCESS_TOKEN }}" > env/.env.local
+
       - name: Build the Go application
         run: go build .
 
