@@ -1,12 +1,18 @@
 package main
 
 import (
+	"flag"
+
 	"github.com/bitcoin-trading-system/bitcoin-slack-notification/config"
 	"github.com/bitcoin-trading-system/bitcoin-slack-notification/router"
 )
 
 func main() {
-	cfg, err := config.NewConfig("toml/local.toml", "env/.env.local")
+	tomlFilePath := flag.String("toml", "toml/local.toml", "tomlファイルのパス")
+	envFilePath := flag.String("env", "env/.env.local", "envファイルのパス")
+	flag.Parse()
+
+	cfg, err := config.NewConfig(*tomlFilePath, *envFilePath)
 	if err != nil {
 		panic(err)
 	}
